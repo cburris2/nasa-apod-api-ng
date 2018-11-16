@@ -1,0 +1,20 @@
+
+<div class="jumbotron">
+  <h1 class="display-4">NASA Astronomy Image Viewer!</h1>
+  <p class="lead">These beautiful images are provided by NASA free of charge.</p>
+  <hr class="my-4">
+  <p></p>
+  <p class="lead">
+    <a class="btn btn-primary btn-lg" href="https://github.com/nasa/apod-api" role="button">APOD GITHUB</a>
+  </p>
+</div>
+<div class="container">
+  <div class="card" *ngFor="let image of testArray">
+    <img class="card-img-top" src="{{image.url}}" alt="Card image cap">
+    <div class="card-body">
+      <h5 class="card-title">{{image.title}}</h5>
+      <p class="card-text">{{image.explanation}}</p>
+      <p class="card-text"><small class="text-muted">Created {{image.date}} &copy;{{image.copyright}}</small></p>
+    </div>
+</div>
+
