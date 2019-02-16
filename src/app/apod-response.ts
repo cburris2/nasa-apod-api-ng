@@ -6,6 +6,7 @@ export interface ApodResponse {
     media_type: string,
     service_version: string,
     title: string,
-    url: string
+    url: string,
+    copyright: string;
 
 }
