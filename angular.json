@@ -51,18 +51,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "nasa-apod-api:build"
+            "buildTarget": "nasa-apod-api:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "nasa-apod-api:build:production"
+              "buildTarget": "nasa-apod-api:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "nasa-apod-api:build"
+            "buildTarget": "nasa-apod-api:build"
           }
         },
         "test": {
@@ -125,5 +125,8 @@
       }
     }
   },
-  "defaultProject": "nasa-apod-api"
+  "defaultProject": "nasa-apod-api",
+  "cli": {
+    "analytics": "fbfc6a90-6458-44cb-9569-278dcb7206fa"
+  }
 }

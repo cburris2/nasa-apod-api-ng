@@ -1,35 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ApiServiceService } from './api-service.service';
-import { BehaviorSubject } from 'rxjs';
 import { ApodResponse } from './apod-response';
+import { JsonPipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  imports: [JsonPipe]
 })
 export class AppComponent {
-  response = new BehaviorSubject<ApodResponse[]>([]);
-  headers = [];
-  testArray = [];
+  private readonly apiService = inject(ApiServiceService);
 
-  constructor(private apiService: ApiServiceService) {
+  // Expose the observable directly to the template
+  response$ = this.apiService.getApodImages();
+  // headers$ = this.apiService.responseObservable;
+  testArray: ApodResponse[] = [];
 
-      this.apiService.getAPODImage()
-      .subscribe(resp => {
-        // display its headers
-        const keys = resp.headers.keys();
-        this.headers = keys.map(key =>
-          `${key}: ${resp.headers.get(key)}`);
+  constructor() {
 
-        Object.keys(resp.body).forEach(key => 
-          {
-            this.response.next(resp.body[key]);
-            this.testArray.push(resp.body[key]);
-        });
-
-      });
-
+    // Optionally, you can handle any logic if needed when the service response changes
+    this.response$.subscribe({
+        next: (data) => {
+          console.log('Received data:', data);  // Log data for inspection
+          this.testArray = [...data];
+          console.log('Test array updated:', this.testArray);  // Log the updated test array
+        },
+        error: (err) => {
+          console.error('Error:', err);  // Log errors if any
+        },
+        complete: () => {
+          console.log('Data fetch complete');  // Log when the observable completes
+        }
+    });
   }
-
 }
